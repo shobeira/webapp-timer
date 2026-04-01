@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Keeper - Web App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Time Keeper</h1>
+        
+        <div class="duration-section">
+            <h3>Default Meeting Duration</h3>
+            <div class="duration-controls">
+                <input type="number" id="durationInput" value="50" min="1" max="480">
+                <span>minutes</span>
+                <button class="btn-secondary" onclick="updateDuration()">Set Duration</button>
+            </div>
+        </div>
+
+        <div class="timer-display">
+            <div class="time-row">
+                <span class="time-label">Time Elapsed:</span>
+                <span class="time-value" id="elapsedTime">00:00:00</span>
+            </div>
+            <div class="time-row">
+                <span class="time-label">Time Remaining:</span>
+                <span class="time-value time-remaining" id="remainingTime">00:50:00</span>
+            </div>
+            <div class="progress-container">
+                <div class="time-label">Progress:</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" id="startStopBtn" onclick="toggleTimer()">Start Timer</button>
+            <button class="btn-secondary" onclick="resetTimer()">Reset</button>
+            <button class="btn-success" onclick="addFiveMinutes()">Add 5 Min</button>
+        </div>
+
+        <div class="status-bar" id="statusBar">Ready to start timer</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

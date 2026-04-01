@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: #282C34;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: #e8eaed;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 400;
+}
+
+.duration-section {
+    background: #1f2228;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.duration-section h3 {
+    color: #abb2bf;
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.duration-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.duration-controls span {
+    color: #abb2bf;
+}
+
+.duration-controls .btn-secondary {
+    background: #FF8F33;
+    color: #282C34;
+}
+
+.duration-controls .btn-secondary:hover {
+    background: #FFA04D;
+}
+
+input[type="number"] {
+    width: 80px;
+    padding: 8px 12px;
+    border: 1px solid #5C6370;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    background: #282C34;
+    color: #e8eaed;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #FF6F00;
+}
+
+.timer-display {
+    background: #1f2228;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.time-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+.time-row:last-child {
+    margin-bottom: 0;
+}
+
+.time-label {
+    font-weight: 500;
+    color: #abb2bf;
+    font-size: 1.1em;
+}
+
+.time-value {
+    font-family: 'Courier New', monospace;
+    font-size: 1.8em;
+    font-weight: bold;
+    min-width: 120px;
+    text-align: right;
+}
+
+.time-row:first-child .time-value {
+    color: #FF6F00;
+}
+
+.time-remaining {
+    color: #ffffff;
+}
+
+.progress-container {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: #282C34;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #8EC07C;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-fill.warning {
+    background: #FFB84D;
+}
+
+.progress-fill.critical {
+    background: #FF6F00;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.btn-primary {
+    background: #FF6F00;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #FF8F33;
+}
+
+.controls .btn-secondary {
+    background: #D32F2F;
+    color: #ffffff;
+}
+
+.controls .btn-secondary:hover {
+    background: #E53935;
+}
+
+.btn-success {
+    background: #8EC07C;
+    color: #282C34;
+}
+
+.btn-success:hover {
+    background: #9FCC8F;
+}
+
+.status-bar {
+    background: #1f2228;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    color: #abb2bf;
+}
+
+.status-running {
+    background: #2a3a2e;
+    color: #8EC07C;
+}
+
+.status-stopped {
+    background: #3a2d2d;
+    color: #FF8F33;
+}
+
+.status-complete {
+    background: #3a3229;
+    color: #FFB84D;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .time-value {
+        font-size: 1.4em;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
