@@ -6,7 +6,7 @@ class TimeKeeper {
         this.meetingDuration = 50; // minutes
         this.timerInterval = null;
         this.hasStarted = false; // Track if timer has ever been started
-        this.originalTitle = document.title; // Store original title
+        this.originalTitle = '⏳ Time Keeper - shobeira.com'; // Store original title
         
         this.elapsedTimeEl = document.getElementById('elapsedTime');
         this.remainingTimeEl = document.getElementById('remainingTime');
@@ -95,7 +95,7 @@ class TimeKeeper {
             const elapsedSecondsFloored = Math.floor(this.elapsedSeconds);
             const remainingSeconds = Math.max(0, meetingSeconds - elapsedSecondsFloored);
             const remainingStr = this.formatTime(remainingSeconds);
-            document.title = `⏸️ ${remainingStr} - Time Keeper`;
+            document.title = `⏸️ ${remainingStr}`;
         }
     }
 
@@ -157,12 +157,12 @@ class TimeKeeper {
         this.elapsedTimeEl.textContent = elapsedStr;
         this.remainingTimeEl.textContent = remainingStr;
         
-        // Update browser tab title with remaining time when running
+        // Update browser tab title with remaining time
         if (this.isRunning) {
-            document.title = `⏱️ ${remainingStr} - Time Keeper`;
+            document.title = `⏱️ ${remainingStr}`;
         } else if (this.hasStarted) {
             // Show paused timer in title
-            document.title = `⏸️ ${remainingStr} - Time Keeper`;
+            document.title = `⏸️ ${remainingStr}`;
         }
         
         // Update progress bar
@@ -191,7 +191,7 @@ class TimeKeeper {
         this.updateStatus('Meeting time reached!', 'complete');
         
         // Update title to show time's up
-        document.title = '⏰ Time\'s Up! - Time Keeper';
+        document.title = '⏰ Time\'s Up!';
         
         // Show browser notification if supported
         if ('Notification' in window && Notification.permission === 'granted') {
