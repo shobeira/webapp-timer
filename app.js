@@ -6,7 +6,6 @@ class TimeKeeper {
         this.meetingDuration = 50; // minutes
         this.timerInterval = null;
         this.hasStarted = false; // Track if timer has ever been started
-        this.originalTitle = '⏳ Time Keeper - shobeira.com'; // Store original title
         
         this.elapsedTimeEl = document.getElementById('elapsedTime');
         this.remainingTimeEl = document.getElementById('remainingTime');
@@ -15,6 +14,9 @@ class TimeKeeper {
         this.statusBar = document.getElementById('statusBar');
         this.durationInput = document.getElementById('durationInput');
         this.progressLabelEl = document.querySelector('.progress-container .time-label');
+        
+        // Set initial title with hourglass emoji
+        document.title = '⏳ Time Keeper - shobeira.com';
         
         this.updateDisplay();
         this.setupEventListeners();
@@ -89,7 +91,7 @@ class TimeKeeper {
         this.startStopBtn.className = 'btn-primary';
         this.updateStatus('Timer paused', 'stopped');
         
-        // Keep timer in title when paused (if started)
+        // Update title when paused
         if (this.hasStarted) {
             const meetingSeconds = this.meetingDuration * 60;
             const elapsedSecondsFloored = Math.floor(this.elapsedSeconds);
@@ -112,8 +114,8 @@ class TimeKeeper {
         this.updateDisplay();
         this.updateStatus('Timer reset');
         
-        // Restore original title when reset
-        document.title = this.originalTitle;
+        // Restore title to initial state with hourglass emoji
+        document.title = '⏳ Time Keeper - shobeira.com';
     }
 
     addFiveMinutes() {
@@ -157,13 +159,12 @@ class TimeKeeper {
         this.elapsedTimeEl.textContent = elapsedStr;
         this.remainingTimeEl.textContent = remainingStr;
         
-        // Update browser tab title with remaining time
+        // Update browser tab title - ONLY when running
         if (this.isRunning) {
             document.title = `⏱️ ${remainingStr}`;
-        } else if (this.hasStarted) {
-            // Show paused timer in title
-            document.title = `⏸️ ${remainingStr}`;
         }
+        // Note: When paused, title is set in stopTimer()
+        // When reset, title is set in resetTimer()
         
         // Update progress bar
         let progressPercent = 0;
