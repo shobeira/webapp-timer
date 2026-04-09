@@ -16,7 +16,7 @@ class TimeKeeper {
         this.progressLabelEl = document.querySelector('.progress-container .time-label');
         
         // Set initial title with hourglass emoji
-        document.title = '⏳ Time Keeper - shobeira.com';
+        document.title = 'Time Keeper - shobeira.com';
         
         this.updateDisplay();
         this.setupEventListeners();
@@ -115,7 +115,7 @@ class TimeKeeper {
         this.updateStatus('Timer reset');
         
         // Restore title to initial state with hourglass emoji
-        document.title = '⏳ Time Keeper - shobeira.com';
+        document.title = 'Time Keeper - shobeira.com';
     }
 
     addFiveMinutes() {
