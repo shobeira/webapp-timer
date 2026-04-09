@@ -15,7 +15,7 @@ class TimeKeeper {
         this.durationInput = document.getElementById('durationInput');
         this.progressLabelEl = document.querySelector('.progress-container .time-label');
         
-        // Set initial title with hourglass emoji
+        // Set initial title without emoji (favicon provides the hourglass)
         document.title = 'Time Keeper - shobeira.com';
         
         this.updateDisplay();
@@ -91,13 +91,13 @@ class TimeKeeper {
         this.startStopBtn.className = 'btn-primary';
         this.updateStatus('Timer paused', 'stopped');
         
-        // Update title when paused
+        // Update title when paused - emoji AFTER time
         if (this.hasStarted) {
             const meetingSeconds = this.meetingDuration * 60;
             const elapsedSecondsFloored = Math.floor(this.elapsedSeconds);
             const remainingSeconds = Math.max(0, meetingSeconds - elapsedSecondsFloored);
             const remainingStr = this.formatTime(remainingSeconds);
-            document.title = `⏸️ ${remainingStr}`;
+            document.title = `${remainingStr} ⏸️`;
         }
     }
 
@@ -114,7 +114,7 @@ class TimeKeeper {
         this.updateDisplay();
         this.updateStatus('Timer reset');
         
-        // Restore title to initial state with hourglass emoji
+        // Restore title to initial state without emoji (favicon provides hourglass)
         document.title = 'Time Keeper - shobeira.com';
     }
 
@@ -159,9 +159,9 @@ class TimeKeeper {
         this.elapsedTimeEl.textContent = elapsedStr;
         this.remainingTimeEl.textContent = remainingStr;
         
-        // Update browser tab title - ONLY when running
+        // Update browser tab title - emoji AFTER time when running
         if (this.isRunning) {
-            document.title = `⏱️ ${remainingStr}`;
+            document.title = `${remainingStr} ⏱️`;
         }
         // Note: When paused, title is set in stopTimer()
         // When reset, title is set in resetTimer()
@@ -192,7 +192,7 @@ class TimeKeeper {
         this.updateStatus('Meeting time reached!', 'complete');
         
         // Update title to show time's up
-        document.title = '⏰ Time\'s Up!';
+        document.title = 'Time\'s Up! ⏰';
         
         // Show browser notification if supported
         if ('Notification' in window && Notification.permission === 'granted') {
