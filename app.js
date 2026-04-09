@@ -36,9 +36,10 @@ class TimeKeeper {
     }
 
     formatTime(seconds) {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = Math.floor(seconds % 60);
+        const totalSeconds = Math.floor(seconds);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const secs = totalSeconds % 60;
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
@@ -74,7 +75,7 @@ class TimeKeeper {
         
         this.timerInterval = setInterval(() => {
             this.updateTimer();
-        }, 100);
+        }, 50); // Update more frequently for smoother display
     }
 
     stopTimer() {
@@ -126,20 +127,27 @@ class TimeKeeper {
     }
 
     updateDisplay() {
-        // Update elapsed time
-        const elapsedStr = this.formatTime(this.elapsedSeconds);
-        this.elapsedTimeEl.textContent = elapsedStr;
-        
-        // Calculate and update remaining time
+        // Calculate meeting duration in seconds
         const meetingSeconds = this.meetingDuration * 60;
-        const remainingSeconds = Math.max(0, meetingSeconds - this.elapsedSeconds);
+        
+        // Get elapsed seconds (floored for display)
+        const elapsedSecondsFloored = Math.floor(this.elapsedSeconds);
+        
+        // Calculate remaining seconds ensuring it matches elapsed
+        const remainingSeconds = Math.max(0, meetingSeconds - elapsedSecondsFloored);
+        
+        // Format both times
+        const elapsedStr = this.formatTime(elapsedSecondsFloored);
         const remainingStr = this.formatTime(remainingSeconds);
+        
+        // Update displays
+        this.elapsedTimeEl.textContent = elapsedStr;
         this.remainingTimeEl.textContent = remainingStr;
         
         // Update progress bar
         let progressPercent = 0;
         if (meetingSeconds > 0) {
-            progressPercent = Math.min(100, (this.elapsedSeconds / meetingSeconds) * 100);
+            progressPercent = Math.min(100, (elapsedSecondsFloored / meetingSeconds) * 100);
         }
         this.progressFillEl.style.width = `${progressPercent}%`;
         
