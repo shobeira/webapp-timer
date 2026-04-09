@@ -6,6 +6,7 @@ class TimeKeeper {
         this.meetingDuration = 50; // minutes
         this.timerInterval = null;
         this.hasStarted = false; // Track if timer has ever been started
+        this.originalTitle = document.title; // Store original title
         
         this.elapsedTimeEl = document.getElementById('elapsedTime');
         this.remainingTimeEl = document.getElementById('remainingTime');
@@ -87,6 +88,15 @@ class TimeKeeper {
         this.startStopBtn.textContent = this.hasStarted ? 'Resume Timer' : 'Start Timer';
         this.startStopBtn.className = 'btn-primary';
         this.updateStatus('Timer paused', 'stopped');
+        
+        // Keep timer in title when paused (if started)
+        if (this.hasStarted) {
+            const meetingSeconds = this.meetingDuration * 60;
+            const elapsedSecondsFloored = Math.floor(this.elapsedSeconds);
+            const remainingSeconds = Math.max(0, meetingSeconds - elapsedSecondsFloored);
+            const remainingStr = this.formatTime(remainingSeconds);
+            document.title = `⏸️ ${remainingStr} - Time Keeper`;
+        }
     }
 
     resetTimer() {
@@ -101,6 +111,9 @@ class TimeKeeper {
         this.startStopBtn.textContent = 'Start Timer';
         this.updateDisplay();
         this.updateStatus('Timer reset');
+        
+        // Restore original title when reset
+        document.title = this.originalTitle;
     }
 
     addFiveMinutes() {
@@ -144,6 +157,14 @@ class TimeKeeper {
         this.elapsedTimeEl.textContent = elapsedStr;
         this.remainingTimeEl.textContent = remainingStr;
         
+        // Update browser tab title with remaining time when running
+        if (this.isRunning) {
+            document.title = `⏱️ ${remainingStr} - Time Keeper`;
+        } else if (this.hasStarted) {
+            // Show paused timer in title
+            document.title = `⏸️ ${remainingStr} - Time Keeper`;
+        }
+        
         // Update progress bar
         let progressPercent = 0;
         if (meetingSeconds > 0) {
@@ -168,6 +189,9 @@ class TimeKeeper {
     meetingTimeUp() {
         this.stopTimer();
         this.updateStatus('Meeting time reached!', 'complete');
+        
+        // Update title to show time's up
+        document.title = '⏰ Time\'s Up! - Time Keeper';
         
         // Show browser notification if supported
         if ('Notification' in window && Notification.permission === 'granted') {
