@@ -6,6 +6,7 @@ class TimeKeeper {
         this.meetingDuration = 50; // minutes
         this.timerInterval = null;
         this.hasStarted = false; // Track if timer has ever been started
+        this.audioReady = false; // Track if audio has been primed
         
         this.elapsedTimeEl = document.getElementById('elapsedTime');
         this.remainingTimeEl = document.getElementById('remainingTime');
@@ -17,6 +18,7 @@ class TimeKeeper {
         
         // Create audio element for notification sound
         this.notificationSound = new Audio('alarm.mp3');
+        this.notificationSound.preload = 'auto';
         
         // Set initial title without emoji (favicon provides the hourglass)
         document.title = 'Time Keeper - shobeira.com';
@@ -63,6 +65,19 @@ class TimeKeeper {
         }
     }
 
+    // Prime audio for Firefox on first user interaction
+    primeAudio() {
+        if (!this.audioReady) {
+            this.notificationSound.play().then(() => {
+                this.notificationSound.pause();
+                this.notificationSound.currentTime = 0;
+                this.audioReady = true;
+            }).catch(error => {
+                console.log('Audio priming failed:', error);
+            });
+        }
+    }
+
     toggleTimer() {
         if (!this.isRunning) {
             this.startTimer();
@@ -72,6 +87,9 @@ class TimeKeeper {
     }
 
     startTimer() {
+        // Prime audio on first user interaction
+        this.primeAudio();
+        
         this.isRunning = true;
         this.hasStarted = true;
         this.startTime = Date.now() - (this.elapsedSeconds * 1000);
@@ -198,6 +216,7 @@ class TimeKeeper {
         document.title = 'Time\'s Up! ⏰';
         
         // Play notification sound
+        this.notificationSound.currentTime = 0; // Reset to beginning
         this.notificationSound.play().catch(error => {
             console.log('Could not play notification sound:', error);
         });
