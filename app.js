@@ -15,6 +15,9 @@ class TimeKeeper {
         this.durationInput = document.getElementById('durationInput');
         this.progressLabelEl = document.querySelector('.progress-container .time-label');
         
+        // Create audio element for notification sound
+        this.notificationSound = new Audio('alarm.mp3');
+        
         // Set initial title without emoji (favicon provides the hourglass)
         document.title = 'Time Keeper - shobeira.com';
         
@@ -193,6 +196,11 @@ class TimeKeeper {
         
         // Update title to show time's up
         document.title = 'Time\'s Up! ⏰';
+        
+        // Play notification sound
+        this.notificationSound.play().catch(error => {
+            console.log('Could not play notification sound:', error);
+        });
         
         // Show browser notification if supported
         if ('Notification' in window && Notification.permission === 'granted') {
