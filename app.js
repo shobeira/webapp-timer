@@ -112,13 +112,20 @@ class TimeKeeper {
         this.startStopBtn.className = 'btn-primary';
         this.updateStatus('Timer paused', 'stopped');
         
-        // Update title when paused - emoji AFTER time
+        // Update title when paused
         if (this.hasStarted) {
             const meetingSeconds = this.meetingDuration * 60;
             const elapsedSecondsFloored = Math.floor(this.elapsedSeconds);
             const remainingSeconds = Math.max(0, meetingSeconds - elapsedSecondsFloored);
             const remainingStr = this.formatTime(remainingSeconds);
-            document.title = `${remainingStr} ⏸️`;
+            
+            // Calculate progress percentage
+            let progressPercent = 0;
+            if (meetingSeconds > 0) {
+                progressPercent = Math.floor((elapsedSecondsFloored / meetingSeconds) * 100);
+            }
+            
+            document.title = `${remainingStr} ⏸️ ${Math.floor(progressPercent)}%`;
         }
     }
 
@@ -180,13 +187,6 @@ class TimeKeeper {
         this.elapsedTimeEl.textContent = elapsedStr;
         this.remainingTimeEl.textContent = remainingStr;
         
-        // Update browser tab title - emoji AFTER time when running
-        if (this.isRunning) {
-            document.title = `${remainingStr} ⏱️`;
-        }
-        // Note: When paused, title is set in stopTimer()
-        // When reset, title is set in resetTimer()
-        
         // Update progress bar
         let progressPercent = 0;
         if (meetingSeconds > 0) {
@@ -196,6 +196,11 @@ class TimeKeeper {
         
         // Update progress percentage label
         this.progressLabelEl.textContent = `Progress: ${Math.floor(progressPercent)}%`;
+        
+        // Update browser tab title when running
+        if (this.isRunning) {
+            document.title = `${remainingStr} ⏰ ${Math.floor(progressPercent)}%`;
+        }
         
         // Update colours based on remaining time
         this.remainingTimeEl.className = 'time-value time-remaining';
