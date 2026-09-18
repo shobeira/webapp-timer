@@ -10,12 +10,14 @@
 <body>
     <div class="container">
         <h1>⏱️ Time Keeper</h1>
+        <div class="version">V2.0.0</div>
         <div class="duration-section">
             <h3>Meeting duration</h3>
             <div class="duration-controls">
-                <input type="number" id="durationInput" value="50" min="1" max="480">
+                <input type="number" id="durationInput" value="50" min="5" max="480" step="5">
                 <span>minutes</span>
-                <button class="btn-secondary" onclick="updateDuration()">Set Duration</button>
+            </div>
+            <div class="quick-durations">
                 <button class="btn-secondary" onclick="setQuickDuration(10)">10 mins</button>
                 <button class="btn-secondary" onclick="setQuickDuration(25)">25 mins</button>
             </div>
@@ -39,7 +41,7 @@
         <div class="controls">
             <button class="btn-primary" id="startStopBtn" onclick="toggleTimer()">Start Timer</button>
             <button class="btn-secondary" onclick="resetTimer()">Reset</button>
-            <button class="btn-success" onclick="addFiveMinutes()">Add 5 Min</button>
+            <!-- <button class="btn-success" onclick="addFiveMinutes()">Add 5 Min</button> -->
         </div>
         <div class="status-bar" id="statusBar">Ready to start timer</div>
     </div>

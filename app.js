@@ -3,7 +3,6 @@ class TimeKeeper {
         this.isRunning = false;
         this.startTime = null;
         this.elapsedSeconds = 0;
-        this.meetingDuration = 50; // minutes
         this.timerInterval = null;
         this.hasStarted = false; // Track if timer has ever been started
         this.audioReady = false; // Track if audio has been primed
@@ -15,6 +14,9 @@ class TimeKeeper {
         this.statusBar = document.getElementById('statusBar');
         this.durationInput = document.getElementById('durationInput');
         this.progressLabelEl = document.querySelector('.progress-container .time-label');
+        
+        // Read meeting duration from the input field (handles browser-remembered values)
+        this.meetingDuration = parseInt(this.durationInput.value) || 50;
         
         // Create audio element for notification sound
         this.notificationSound = new Audio('alarm.mp3');
@@ -33,6 +35,11 @@ class TimeKeeper {
             if (e.key === 'Enter') {
                 this.updateDuration();
             }
+        });
+
+        // Apply duration automatically when value changes (typing + blur, or arrow buttons)
+        this.durationInput.addEventListener('change', () => {
+            this.updateDuration();
         });
 
         // Handle window focus/blur for accurate timing
@@ -248,10 +255,6 @@ class TimeKeeper {
 
 // Global functions for button onclick handlers
 let timeKeeper;
-
-function updateDuration() {
-    timeKeeper.updateDuration();
-}
 
 function setQuickDuration(minutes) {
     timeKeeper.durationInput.value = minutes;

@@ -26,9 +26,15 @@ body {
 
 h1 {
     color: #e8eaed;
-    margin-bottom: 30px;
+    margin-bottom: 8px;
     font-size: 2.5em;
     font-weight: 400;
+}
+
+.version {
+    color: #5C6370;
+    font-size: 0.85em;
+    margin-bottom: 30px;
 }
 
 .duration-section {
@@ -51,18 +57,29 @@ h1 {
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 }
 
 .duration-controls span {
     color: #abb2bf;
 }
 
-.duration-controls .btn-secondary {
-    background: #FF8F33;
-    color: #282C34;
+.duration-controls input[type="number"] {
+    width: 80px;
 }
 
-.duration-controls .btn-secondary:hover {
+.quick-durations {
+    display: flex;
+    gap: 15px;
+}
+
+.quick-durations .btn-secondary {
+    background: #FF8F33;
+    color: #282C34;
+    flex: 1;
+}
+
+.quick-durations .btn-secondary:hover {
     background: #FFA04D;
 }
 
@@ -158,6 +175,11 @@ input[type="number"]:focus {
     gap: 15px;
     flex-wrap: wrap;
     margin-bottom: 20px;
+}
+
+.controls .btn-primary,
+.controls .btn-secondary {
+    flex: 1;
 }
 
 button {
