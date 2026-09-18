@@ -253,6 +253,11 @@ function updateDuration() {
     timeKeeper.updateDuration();
 }
 
+function setQuickDuration(minutes) {
+    timeKeeper.durationInput.value = minutes;
+    timeKeeper.updateDuration();
+}
+
 function toggleTimer() {
     timeKeeper.toggleTimer();
 }
